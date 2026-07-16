@@ -1,0 +1,722 @@
+/* ============================================================
+   Certificate Generator — styles.css
+   Sections:
+     1. Design Tokens (CSS Custom Properties)
+     2. Reset & Base
+     3. Layout — Header, Container
+     4. Form Panel
+     5. Type Selector Buttons
+     6. Generate Button & Spinner
+     7. Preview Panel & Toolbar
+     8. Action Buttons
+     9. Status Bar
+    10. Empty State
+    11. Certificate — Structure & Borders
+    12. Certificate — Ornaments (Corners, Seal, Ribbon)
+    13. Certificate — Typography & Body
+    14. Certificate — Footer / Signatures
+    15. Print Styles
+    16. Scrollbar
+    17. Responsive
+   ============================================================ */
+
+
+/* ── 1. Design Tokens ─────────────────────────────────────── */
+
+:root {
+  /* Gold palette */
+  --gold:          #C9A84C;
+  --gold-light:    #E8CC80;
+  --gold-dark:     #8B6914;
+
+  /* Certificate base colours */
+  --navy:          #1a2744;
+  --navy-light:    #243260;
+  --cream:         #FDFBF5;
+
+  /* UI text */
+  --text-dark:     #1a1a2e;
+  --text-mid:      #4a4a6a;
+  --text-muted:    #8a8aaa;
+
+  /* UI surfaces */
+  --surface:       #ffffff;
+  --surface-2:     #f8f7ff;
+
+  /* Accent (indigo) */
+  --accent:        #4f6ef7;
+  --accent-light:  #eef0ff;
+
+  /* Shared */
+  --radius:        12px;
+  --shadow:        0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ── 2. Reset & Base ──────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  min-height: 100vh;
+  color: var(--text-dark);
+}
+
+
+/* ── 3. Layout — Header & Container ──────────────────────── */
+
+header {
+  text-align: center;
+  padding: 2.5rem 1rem 1.5rem;
+  color: white;
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #E8CC80, #C9A84C, #fff5d6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+
+/* ── 4. Form Panel ────────────────────────────────────────── */
+
+.panel {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.panel-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-title::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mid);
+  margin-bottom: 5px;
+  margin-top: 14px;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid #e2e2ef;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-dark);
+  background: var(--surface-2);
+  transition: border-color 0.15s;
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.hint-box {
+  background: var(--accent-light);
+  border: 1px solid #c7d0fc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  color: #3d56c9;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+
+/* ── 5. Type Selector Buttons ─────────────────────────────── */
+
+.type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.type-btn {
+  padding: 10px 8px;
+  border: 1.5px solid #e2e2ef;
+  border-radius: 8px;
+  background: var(--surface-2);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--text-mid);
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  line-height: 1.3;
+  font-family: 'Inter', sans-serif;
+}
+
+.type-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+.type-btn.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: white;
+}
+
+.type-btn .icon {
+  font-size: 18px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+
+/* ── 6. Generate Button & Spinner ─────────────────────────── */
+
+.btn-generate {
+  width: 100%;
+  margin-top: 1.25rem;
+  padding: 13px;
+  background: linear-gradient(135deg, var(--accent), #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.btn-generate:hover  { opacity: 0.92; transform: translateY(-1px); }
+.btn-generate:active { transform: scale(0.98); }
+.btn-generate:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+
+/* ── 7. Preview Panel & Toolbar ───────────────────────────── */
+
+.preview-panel {
+  background: var(--surface);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.preview-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  background: #fafafa;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.preview-toolbar span {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.preview-area {
+  padding: 20px;
+  background: #e8e8f0;
+  min-height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+
+/* ── 8. Action Buttons ────────────────────────────────────── */
+
+.btn-action {
+  padding: 7px 14px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  border: 1.5px solid #e2e2ef;
+  background: white;
+  color: var(--text-mid);
+  transition: background 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-action:hover {
+  background: var(--surface-2);
+  border-color: #c0c0d8;
+}
+
+.btn-action.primary {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+}
+
+.btn-action.primary:hover {
+  background: var(--navy-light);
+}
+
+
+/* ── 9. Status Bar ────────────────────────────────────────── */
+
+#status-bar {
+  display: none;
+  padding: 10px 16px;
+  background: var(--accent-light);
+  border-top: 1px solid #c7d0fc;
+  font-size: 13px;
+  color: #3d56c9;
+  font-weight: 500;
+  align-items: center;
+  gap: 8px;
+}
+
+#status-bar .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse 1s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+
+/* ── 10. Empty State ──────────────────────────────────────── */
+
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 3rem 2rem;
+}
+
+.empty-state .icon-wrap {
+  width: 64px;
+  height: 64px;
+  background: #f0f0f8;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 28px;
+}
+
+.empty-state strong {
+  font-size: 15px;
+  color: var(--text-mid);
+}
+
+.empty-state p {
+  font-size: 14px;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+
+/* ── 11. Certificate — Structure & Borders ────────────────── */
+
+#cert-wrap {
+  width: 100%;
+  max-width: 680px;
+  display: none;
+}
+
+.certificate {
+  width: 100%;
+  background: var(--cream);
+  position: relative;
+  font-family: 'Playfair Display', serif;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+  aspect-ratio: 1.414 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.cert-outer-border {
+  position: absolute;
+  inset: 10px;
+  border: 2.5px solid var(--gold);
+  pointer-events: none;
+}
+
+.cert-inner-border {
+  position: absolute;
+  inset: 16px;
+  border: 1px solid var(--gold-light);
+  pointer-events: none;
+}
+
+
+/* ── 12. Certificate — Ornaments ──────────────────────────── */
+
+/* Corner decorations */
+.cert-corner {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+}
+
+.cert-corner svg { width: 100%; height: 100%; }
+.cert-corner.tl { top: 5px; left: 5px; }
+.cert-corner.tr { top: 5px; right: 5px;   transform: scaleX(-1); }
+.cert-corner.bl { bottom: 5px; left: 5px; transform: scaleY(-1); }
+.cert-corner.br { bottom: 5px; right: 5px; transform: scale(-1); }
+
+/* Background watermark seal */
+.cert-bg-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.04;
+  width: 240px;
+  height: 240px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Top ribbon banner */
+.cert-ribbon {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(6.5px, 0.95vw, 9.5px);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  white-space: nowrap;
+}
+
+.cert-ribbon::before,
+.cert-ribbon::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 28px;
+  background: var(--gold);
+}
+
+/* Bottom footer text */
+.cert-bottom-text {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(6px, 0.85vw, 8.5px);
+  color: var(--gold-dark);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+/* Gold divider */
+.cert-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 4px auto 12px;
+}
+
+.cert-divider-line    { height: 1px; background: var(--gold); flex: 1; max-width: 90px; }
+.cert-divider-diamond { width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); }
+
+
+/* ── 13. Certificate — Typography & Body ──────────────────── */
+
+.cert-body {
+  position: relative;
+  z-index: 2;
+  padding: 26px 52px;
+  width: 100%;
+}
+
+.cert-org {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(8px, 1.35vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 5px;
+}
+
+.cert-title {
+  font-size: clamp(16px, 3.2vw, 28px);
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.04em;
+  margin-bottom: 3px;
+  line-height: 1.15;
+}
+
+.cert-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(7px, 1vw, 10px);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.cert-presented {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(7px, 1vw, 10px);
+  color: var(--text-mid);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.cert-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(24px, 4.8vw, 44px);
+  color: var(--navy);
+  margin: 2px 0 8px;
+  line-height: 1.1;
+}
+
+.cert-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(7.5px, 1.1vw, 11px);
+  color: var(--text-mid);
+  line-height: 1.7;
+  max-width: 74%;
+  margin: 0 auto 14px;
+  font-style: italic;
+}
+
+
+/* ── 14. Certificate — Footer / Signatures ────────────────── */
+
+.cert-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--gold-light);
+  gap: 12px;
+}
+
+.cert-sig-block {
+  text-align: center;
+  flex: 1;
+  max-width: 160px;
+}
+
+.cert-sig-line {
+  border-top: 1px solid var(--navy);
+  margin-bottom: 4px;
+  width: 100%;
+}
+
+.cert-sig-name {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(6.5px, 0.95vw, 9.5px);
+  font-weight: 600;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cert-sig-role {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(6px, 0.85vw, 8.5px);
+  color: var(--text-muted);
+}
+
+.cert-id-block {
+  text-align: center;
+  flex: 0 0 auto;
+}
+
+.cert-id {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(6px, 0.8vw, 8.5px);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+
+/* ── 15. Print Styles ─────────────────────────────────────── */
+
+@media print {
+  body {
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  header,
+  .container > div:first-child,
+  .preview-toolbar,
+  #status-bar {
+    display: none !important;
+  }
+
+  .preview-panel {
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .preview-area {
+    background: white;
+    padding: 0;
+    min-height: unset;
+  }
+
+  .certificate {
+    box-shadow: none;
+    width: 100%;
+    max-width: none;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 0.6cm;
+  }
+}
+
+
+/* ── 16. Scrollbar ────────────────────────────────────────── */
+
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: #ccc; border-radius: 3px; }
+
+
+/* ── 17. Responsive ───────────────────────────────────────── */
+
+@media (max-width: 800px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .preview-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .toolbar-actions {
+    width: 100%;
+  }
+
+  .btn-action {
+    flex: 1;
+    justify-content: center;
+  }
+}
